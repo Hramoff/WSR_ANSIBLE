@@ -1,0 +1,26 @@
+---
+- name: case1
+  hosts: case1
+  gather_facts: false
+
+  tasks:
+
+  - name: install_mc
+    dnf: 
+      name: "mc"
+
+  - name: install Docker
+    dnf:
+      name: "docker"
+  
+  - name: create directory
+    file: path=/root/docker state=directory
+
+  - name: download image "PROKAT"
+    get_url:
+      url: https://storage.googleapis.com/wscc-cloud-public/responding-app.tar
+      dest: /root/docker/responding-app.tar
+      mode: '0777'
+
+  - name: Create image or tar
+    shell: docker load < /root/docker/responding-app.tar

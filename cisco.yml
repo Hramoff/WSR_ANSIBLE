@@ -1,0 +1,14 @@
+---
+- hosts: case2
+  gather_facts: no
+  vars:
+   - left_hostname: "L-RTR.unakbars.ru"
+   - right_hostname: "R-RTR.unakbars.ru"
+  tasks:
+  - name: Set 192.168.200.254 gi2 Right
+    ios_config:
+     parents: "interface gi2"
+     lines:
+       - ip address 192.168.200.254 255.255.255.0
+       - no shut
+    when: inventory_hostname == "R-RTR"
